@@ -1,4 +1,4 @@
-package io.micronaut.opensearch.test_resources;
+package io.micronaut.opensearch;
 
 import io.micronaut.testresources.testcontainers.AbstractTestContainersProvider;
 import org.testcontainers.elasticsearch.OpenSearchContainer;
