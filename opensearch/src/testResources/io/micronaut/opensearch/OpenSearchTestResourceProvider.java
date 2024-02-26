@@ -1,7 +1,7 @@
 package io.micronaut.opensearch;
 
 import io.micronaut.testresources.testcontainers.AbstractTestContainersProvider;
-import org.opensearch.testcontainers.OpenSearchContainer;
+import org.opensearch.testcontainers.OpensearchContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import java.util.Collection;
@@ -42,14 +42,14 @@ public class OpenSearchTestResourceProvider extends AbstractTestContainersProvid
     }
 
     @Override
-    protected OpenSearchContainer createContainer(DockerImageName imageName, Map<String, Object> requestedProperties, Map<String, Object> testResourcesConfig) {
+    protected OpensearchContainer createContainer(DockerImageName imageName, Map<String, Object> requestedProperties, Map<String, Object> testResourcesConfig) {
     	OpensearchContainer<?> opensearchContainer = new OpensearchContainer<>(imageName);
         opensearchContainer.withEnv("plugins.security.disabled", "true");
         return opensearchContainer;
     }
 
     @Override
-    protected Optional<String> resolveProperty(String propertyName, OpenSearchContainer container) {
+    protected Optional<String> resolveProperty(String propertyName, OpensearchContainer container) {
         if (OPENSEARCH_HOSTS.equals(propertyName)) {
             return Optional.of("http://" + container.getHttpHostAddress());
         }
