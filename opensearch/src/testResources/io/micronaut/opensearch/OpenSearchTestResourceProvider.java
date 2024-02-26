@@ -1,7 +1,7 @@
 package io.micronaut.opensearch;
 
 import io.micronaut.testresources.testcontainers.AbstractTestContainersProvider;
-import org.testcontainers.elasticsearch.OpenSearchContainer;
+import org.opensearch.testcontainers.OpenSearchContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import java.util.Collection;
@@ -43,14 +43,14 @@ public class OpenSearchTestResourceProvider extends AbstractTestContainersProvid
 
     @Override
     protected OpenSearchContainer createContainer(DockerImageName imageName, Map<String, Object> requestedProperties, Map<String, Object> testResourcesConfig) {
-        OpenSearchContainer elasticsearchContainer = new OpenSearchContainer(imageName);
-        elasticsearchContainer.withEnv("xpack.security.enabled", "false");
-        return elasticsearchContainer;
+    	OpensearchContainer<?> opensearchContainer = new OpensearchContainer<>(imageName);
+        opensearchContainer.withEnv("plugins.security.disabled", "true");
+        return opensearchContainer;
     }
 
     @Override
     protected Optional<String> resolveProperty(String propertyName, OpenSearchContainer container) {
-        if (ELASTICSEARCH_HOSTS.equals(propertyName)) {
+        if (OPENSEARCH_HOSTS.equals(propertyName)) {
             return Optional.of("http://" + container.getHttpHostAddress());
         }
         return Optional.empty();
@@ -58,6 +58,6 @@ public class OpenSearchTestResourceProvider extends AbstractTestContainersProvid
 
     @Override
     protected boolean shouldAnswer(String propertyName, Map<String, Object> requestedProperties, Map<String, Object> testResourcesConfig) {
-        return ELASTICSEARCH_HOSTS.equals(propertyName);
+        return OPENSEARCH_HOSTS.equals(propertyName);
     }
 }
