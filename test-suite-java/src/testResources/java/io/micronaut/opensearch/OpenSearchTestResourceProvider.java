@@ -13,8 +13,7 @@ import java.util.Optional;
 /**
  * A test resource provider which will spawn an OpenSearch test container.
  */
-public class OpenSearchTestResourceProvider extends AbstractTestContainersProvider<OpensearchContainer> {
-
+public class OpenSearchTestResourceProvider extends AbstractTestContainersProvider<OpensearchContainer<?>> {
     public static final String OPENSEARCH_HOSTS = "opensearch.http-hosts";
     public static final String SIMPLE_NAME = "opensearch";
     public static final String DEFAULT_IMAGE = "opensearchproject/opensearch";

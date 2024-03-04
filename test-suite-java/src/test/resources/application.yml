@@ -1,0 +1,6 @@
+micronaut:
+  application:
+    name: micronaut-opensearch
+opensearch:
+  indexes:
+    movies: micronaut.movies
